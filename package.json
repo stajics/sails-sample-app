@@ -1,0 +1,41 @@
+{
+  "name": "greenauto-backend",
+  "version": "0.1.0",
+  "main": "app.js",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "cron": "^1.1.0",
+    "lodash": "^4.14.0",
+    "moment": "^2.14.1",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.1.0",
+    "passport-local": "^1.0.0",
+    "rc": "1.1.6",
+    "response-time": "^2.3.1",
+    "sails": "~0.12.3",
+    "sails-disk": "^0.10.10",
+    "sails-hook-babel": "^6.0.1",
+    "sails-memory": "^0.10.5",
+    "sails-mysql": "^0.11.5",
+    "sails-service-cipher": "^3.2.1",
+    "sails-service-hash": "^3.2.1",
+    "yamljs": "^0.2.8"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-3": "^6.11.0",
+    "chai": "3.4.1",
+    "esdoc": "0.4.3",
+    "istanbul": "0.4.2",
+    "mocha": "2.3.4",
+    "sails-memory": "0.10.5",
+    "sinon": "1.17.2"
+  },
+  "scripts": {
+    "clean": "rm -rf ./.tmp",
+    "debug": "node debug app.js",
+    "docs": "esdoc -c esdoc.json",
+    "start": "node app.js",
+    "test": "istanbul cover _mocha"
+  }
+}
