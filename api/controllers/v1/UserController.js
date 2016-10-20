@@ -53,20 +53,5 @@ module.exports = {
       res.badRequest(err);
     };
   },
-
-  getShopList: async(req, res) => {
-    try {
-      let users = await User.find();
-      let shops = [req.user.shop];
-
-      if( req.user.role === "super_admin" ) {
-        shops = users.map(user => user.shop);
-        shops = _.uniq(shops);
-      }
-
-      res.ok({ shops });
-    } catch (err) {
-      res.badRequest(err);
-    };
-  }
+  
 };

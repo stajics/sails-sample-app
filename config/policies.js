@@ -13,13 +13,6 @@
 
 module.exports = {
   policies: {
-    "v1/user/SessionController": {
-      refreshToken: "isAuthenticated"
-    },
-
-    "v1/user/RegistrationController": {
-      create: ["isAuthenticated", "isSuperAdmin" ]
-    },
     "v1/UserController": {
       read: ["isAuthenticated"],
       update: ["isAuthenticated", "isSuperAdmin" ],
@@ -27,29 +20,12 @@ module.exports = {
       getShopList: ["isAuthenticated"]
     },
 
-    "v1/NotificationController": {
-      create: ["isAuthenticated", "isSuperAdmin" ]
+    "v1/user/RegistrationController": {
+      create: ["isAuthenticated", "isManager" ]
     },
 
-    "v1/ContractController": {
-      create: [ "isAuthenticated" ],
-      read: ["isAuthenticated" ],
-      update: ["isAuthenticated" ],
-      delete: ["isAuthenticated", "isSuperAdmin" ]
-    },
-
-    "v1/PackageController": {
-      create: [ "isAuthenticated", "isSuperAdmin" ],
-      read: [ "isAuthenticated",],
-      update: [ "isAuthenticated", "isSuperAdmin" ],
-      delete: [ "isAuthenticated", "isSuperAdmin" ]
-    },
-
-    "v1/ContractUsageController": {
-      create: [ "isAuthenticated", "isSuperAdmin" ],
-      read: [ "isAuthenticated", "isSuperAdmin" ],
-      update: [ "isAuthenticated", "isSuperAdmin" ],
-      delete: [ "isAuthenticated", "isSuperAdmin" ]
+    "v1/user/SessionController": {
+      refreshToken: "isAuthenticated"
     }
   }
 };

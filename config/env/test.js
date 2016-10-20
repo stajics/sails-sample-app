@@ -10,7 +10,7 @@ module.exports = {
     level: 'silent'
   },
   models: {
-    connection: 'memory',
+    connection: 'test',
     migrate: 'drop'
   },
   policies: {

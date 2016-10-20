@@ -9,20 +9,12 @@
  * In a POST request the response will contain an entity describing or containing the result of the action.
  */
 
-const _ = require('lodash');
-
 module.exports = function (data, config) {
-  const response = _.assign({
-    status: _.get(config, 'status', 'success'),
-    data: data || null
-  }, _.get(config, 'root', {}));
 
-  // if(!response.data.details || response.data.details instanceof Error){
-  //   if(response.data.details instanceof Error) {
-  //      console.log(response.data.details);
-  //   }
-  //   delete response.data.details;
-  // }
+  const response = Object.assign({
+    status: 'success',
+    data: data || null
+  }, config);
 
   this.res.status(200);
   this.res.jsonx(response);

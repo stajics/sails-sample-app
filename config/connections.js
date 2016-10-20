@@ -28,5 +28,16 @@ module.exports = {
       charset: 'utf8',
       collation: 'utf8_swedish_ci'
     },
+
+    test: {
+      adapter: 'sails-mysql',
+      host: 'localhost',
+      port: 3306,
+      user: 'root',
+      password: 'srle111',
+      database: 'greenauto_test',
+      charset: 'utf8',
+      collation: 'utf8_swedish_ci'
+    },
   }
 };

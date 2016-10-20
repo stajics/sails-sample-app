@@ -4,7 +4,7 @@
  * Passport configuration file where you should configure all your strategies
  * @description :: Configuration file where you configure your passport authentication
  */
-
+const secrets = require('./secrets').secrets;
 const _ = require('lodash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -29,7 +29,7 @@ const LOCAL_STRATEGY_CONFIG = {
  * @private
  */
 const JWT_STRATEGY_CONFIG = {
-  secretOrKey: '90f33740d7d54a56baf849800ad049ae1bea77acc2bbbb30d5854b18c315ce33',
+  secretOrKey: secrets.jwtSecretKey,
   jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
   authScheme: 'Bearer',
   session: false,

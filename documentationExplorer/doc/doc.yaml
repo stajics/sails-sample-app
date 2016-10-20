@@ -6,7 +6,7 @@ swagger: "2.0"
 ################################################################################
 info:
   version: "1.0"
-  title: AMC-Backend
+  title: GreenAuto-Backend
   description: API
 # during dev, should point to your local machine
 host: "localhost:3000"
@@ -47,7 +47,7 @@ paths:
       tags:
         - User
       summary: Add new user.
-      description: "Requires logged in user to be super_admin."
+      description: "Requires logged in user to be menadzer or super_admin."
       operationId: signUp
       consumes:
         - application/json
@@ -59,12 +59,12 @@ paths:
           description: User object that needs to be added to the users.
           required: true
           schema:
-            $ref: "#/definitions/UserAttributes"
+            $ref: "#/definitions/UsersSignUpBody"
       responses:
         "201":
           description: User signed up.
           schema:
-            $ref: "#/definitions/UserResponseWithToken"
+            $ref: "#/definitions/UserSignUpResponse"
 
 
   /users/signin:
@@ -84,12 +84,12 @@ paths:
           description: User credentials for sign in.
           required: true
           schema:
-            $ref: "#/definitions/UserSignInCredentials"
+            $ref: "#/definitions/UsersSignInBody"
       responses:
         "201":
           description: User signed up.
           schema:
-            $ref: "#/definitions/UserResponseWithToken"
+            $ref: "#/definitions/UserSignUpResponse"
 
   /users/refresh_token:
     get:
@@ -108,7 +108,7 @@ paths:
         "200":
           description: User signed up.
           schema:
-            $ref: "#/definitions/UserResponseWithToken"
+            $ref: "#/definitions/UserSignUpResponse"
 
   /users:
     get:
@@ -129,6 +129,28 @@ paths:
             $ref: "#/definitions/UsersResponse"
 
   /users/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User
+      summary: Get all users.
+      operationId: getUsers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID of the user that needs to be updated
+          required: true
+          type: string
+      responses:
+        "200":
+          description: All users.
+          schema:
+            $ref: "#/definitions/UsersResponse"
     put:
       security:
         - Bearer: []
@@ -157,7 +179,7 @@ paths:
         "200":
           description: User updated.
           schema:
-            $ref: "#/definitions/UserResponse"
+            $ref: "#/definitions/DeleteUsersResponse"
 
     delete:
       security:
@@ -181,285 +203,61 @@ paths:
         "200":
           description: User deleted.
           schema:
-            $ref: "#/definitions/UserResponse"
+            $ref: "#/definitions/DeleteUsersResponse"
 
-  /notifications:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Notification
-      summary: Add new notification.
-      description: "Requires logged in user to be super_admin."
-      operationId: addNotification
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Notification object that needs to be added to the contracts.
-          required: true
-          schema:
-            $ref: "#/definitions/NotificationAttributes"
-      responses:
-        "201":
-          description: New notification.
-          schema:
-            $ref: "#/definitions/NotificationResponse"
-
-  /contracts:
-    get:
-      security:
-        - Bearer: []
-      tags:
-        - Contract
-      summary: Get contracts.
-      description: Super admin gets all contracts. Shop admin contracts from the users in his shop. User gets his contracts.
-      operationId: getContracts
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: All users.
-          schema:
-            $ref: "#/definitions/ContractsResponse"
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Contract
-      summary: Add new contract.
-      operationId: addContract
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Contract object that needs to be added to the contracts.
-          required: true
-          schema:
-            $ref: "#/definitions/ContractAttributes"
-      responses:
-        "201":
-          description: New contract.
-          schema:
-            $ref: "#/definitions/ContractResponse"
-
-  /contracts/{id}:
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Contract
-      summary: Delete contract.
-      description: "Requires logged in user to be super_admin."
-      operationId: deleteContract
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: ID of the contract that needs to be deleted.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Contract deleted.
-          schema:
-            $ref: "#/definitions/ContractResponse"
-
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Contract
-      summary: Update contract.
-      description: "Only super admin can modify active field. Shop admin can modify contracts of users from his own shop. User can modify only his contracts."
-      operationId: updateContract
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: ID of the contract that needs to be updated
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Attributes and values that will be updated.
-          required: true
-          schema:
-            $ref: "#/definitions/ContractUpdateAttributes"
-      responses:
-        "200":
-          description: User updated.
-          schema:
-            $ref: "#/definitions/ContractResponse"
-
-  /packages:
-    get:
-      security:
-        - Bearer: []
-      tags:
-        - Package
-      summary: Get packages..
-      description: "Requires logged in user to be super_admin."
-      operationId: getPackages
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: All users.
-          schema:
-            $ref: "#/definitions/PackagesResponse"
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Package
-      summary: Add new package.
-      description: "Requires logged in user to be super_admin."
-      operationId: createPackage
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Package object that needs to be added to the packages.
-          required: true
-          schema:
-            $ref: "#/definitions/PackageAttributes"
-      responses:
-        "201":
-          description: Package created.
-          schema:
-            $ref: "#/definitions/PackageResponse"
-
-  /packages/{id}:
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Package
-      summary: Update contract.
-      description: "Requires logged in user to be super_admin."
-      operationId: updatePackage
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: ID of the package that needs to be updated
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Attributes and values that will be updated.
-          required: true
-          schema:
-            $ref: "#/definitions/PackageAttributes"
-      responses:
-        "200":
-          description: User updated.
-          schema:
-            $ref: "#/definitions/PackageResponse"
-
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Package
-      summary: Delete package.
-      description: "Requires logged in user to be super_admin."
-      operationId: deletePackage
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: ID of the package that needs to be deleted.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Package deleted.
-          schema:
-            $ref: "#/definitions/PackageResponse"
-
-  /contract_usages:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - ContractUsage
-      summary: Add new package.
-      description: "Requires logged in user to be super_admin."
-      operationId: createContractUsages
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Package object that needs to be added to the packages.
-          required: true
-          schema:
-            $ref: "#/definitions/ContractUsageAttributes"
-      responses:
-        "201":
-          description: Package created.
-          schema:
-            $ref: "#/definitions/ContractUsageResponse"
-
-  /contract_usages/{id}:
-   delete:
-      security:
-        - Bearer: []
-      tags:
-        - ContractUsage
-      summary: Delete contract usage.
-      description: "Requires logged in user to be super_admin."
-      operationId: deleteContractUsage
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: ID of the contract usage that needs to be deleted.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Contract usage deleted.
-          schema:
-            $ref: "#/definitions/ContractUsageResponse"
 ################################################################################
 #                                 Definitions                                  #
 ################################################################################
 
 definitions:
-  UserSignInCredentials:
+  #################################################
+  #models
+  User:
+    type: object
+    required:
+      - id
+      - username
+      - ime
+      - email
+      - rola
+      - createdAt
+      - updatedAt
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+      ime:
+        type: string
+      email:
+        type: string
+      rola:
+        type: string
+        enum: ['korisnik', 'menadzer', 'super_admin']
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+  #################################################################
+  #params
+  UsersSignUpBody:
+    type: object
+    required:
+      - username
+      - ime
+      - password
+      - email
+    properties:
+      username:
+        type: string
+      ime:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+
+  UsersSignInBody:
     type: object
     required:
       - username
@@ -469,6 +267,25 @@ definitions:
         type: string
       password:
         type: string
+  ###############################################################
+  #responses
+  UserSignUpResponse:
+    type: object
+    required:
+      - status
+      - data
+    properties:
+      status:
+        type: string
+        enum: ['success']
+      data:
+        type: object
+        properties:
+          token:
+            type: string
+            description: "JWT"
+          user:
+            $ref: "#/definitions/User"
 
   UsersResponse:
     type: object
@@ -480,19 +297,16 @@ definitions:
         type: string
         enum: ['success']
       data:
-        $ref: "#/definitions/UsersResponseData"
+        type: object
+        required:
+          - users
+        properties:
+          users:
+            type: 'array'
+            items:
+              $ref: "#/definitions/User"
 
-  UsersResponseData:
-    type: object
-    required:
-      - users
-    properties:
-      users:
-        type: array
-        items:
-           $ref: "#/definitions/UserObject"
-
-  UserResponseWithToken:
+  DeleteUsersResponse:
     type: object
     required:
       - status
@@ -502,474 +316,11 @@ definitions:
         type: string
         enum: ['success']
       data:
-        $ref: "#/definitions/UserResponseDataWithToken"
-
-  UserResponseDataWithToken:
-    type: object
-    required:
-      - token
-    properties:
-      token:
-        type: string
-        description: JWT login token.
-      user:
-        $ref: "#/definitions/UserObject"
-
-  NotificationResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/NotificationResponseData"
-
-  NotificationResponseData:
-    type: object
-    required:
-      - notification
-    properties:
-      notification:
-        $ref: "#/definitions/NotificationObject"
-
-  ContractResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/ContractResponseData"
-
-  ContractResponseData:
-    type: object
-    required:
-      - contract
-    properties:
-      contract:
-        $ref: "#/definitions/ContractObject"
-
-  ContractsResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/ContractsResponseData"
-
-  ContractsResponseData:
-    type: object
-    required:
-      - contracts
-    properties:
-      contracts:
-        type: array
-        items:
-          $ref: "#/definitions/ContractObject"
-
-  PackageResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/PackageResponseData"
-
-  PackageResponseData:
-    type: object
-    required:
-      - package
-    properties:
-      package:
-        $ref: "#/definitions/PackageObject"
-
-  PackagesResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/PackagesResponseData"
-
-  PackagesResponseData:
-    type: object
-    required:
-      - package
-    properties:
-      package:
-        type: array
-        items:
-          $ref: "#/definitions/PackageObject"
-
-  ContractUsageResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/ContractUsageResponseData"
-
-  ContractUsageResponseData:
-    type: object
-    required:
-      - package
-    properties:
-      package:
-        type: array
-        items:
-          $ref: "#/definitions/ContractUsageObject"
-
-
-  UserResponse:
-    type: object
-    required:
-      - status
-      - data
-    properties:
-      status:
-        type: string
-        enum: ['success']
-      data:
-        $ref: "#/definitions/UserResponseData"
-
-  UserResponseData:
-    type: object
-    required:
-      - user
-    properties:
-      user:
-        $ref: "#/definitions/UserObject"
-
-  UserObject:
-    type: object
-    required:
-      - id
-      - username
-      - name
-      - role
-      - password
-      - email
-      - is_europe
-      - shop
-    properties:
-      id:
-        type: integer
-        format: int64
-      username:
-        type: string
-      name:
-        type: string
-      password:
-        type: string
-      role:
-        type: string
-        enum: ['super_admin', 'shop_admin', 'user']
-      email:
-        type: string
-      is_europe:
-        type: boolean
-      shop:
-        type: string
-      createdAt:
-        type: string
-      updatedAt:
-        type: string
-  UserAttributes:
-    type: object
-    required:
-      - username
-      - name
-      - role
-      - password
-      - email
-      - is_europe
-      - shop
-    properties:
-      username:
-        type: string
-      name:
-        type: string
-      password:
-        type: string
-      role:
-        type: string
-        enum: ['super_admin', 'shop_admin', 'user']
-      email:
-        type: string
-      is_europe:
-        type: boolean
-      shop:
-        type: string
-
-  NotificationAttributes:
-    type: object
-    required:
-      - user_id
-      - message
-    properties:
-      user_id:
-        type: integer
-      message:
-        type: string
-
-  ContractAttributes:
-    type: object
-    required:
-      - name
-      - email
-      - jmbg
-      - phone_number
-      - address
-      - licence_plate
-      - vehicle
-      - vehicle_type
-      - chassie_number
-      - lenght
-      - active
-      - expiration_date
-      - is_europe
-      - package_id
-    properties:
-      name:
-        type: string
-      email:
-        type: string
-      jmbg:
-        type: string
-      phone_number:
-        type: string
-      address:
-        type: string
-      licence_plate:
-        type: string
-      vehicle:
-        type: string
-      vehicle_type:
-        type: string
-      chassie_number:
-        type: string
-      lenght:
-        type: integer
-      active:
-        type: boolean
-      expiration_date:
-        type: string
-      is_europe:
-        type: boolean
-      package_id:
-        type: integer
-
-  ContractUpdateAttributes:
-    type: object
-    properties:
-      name:
-        type: string
-      email:
-        type: string
-      jmbg:
-        type: string
-      phone_number:
-        type: string
-      address:
-        type: string
-      licence_plate:
-        type: string
-      vehicle:
-        type: string
-      vehicle_type:
-        type: string
-      chassie_number:
-        type: string
-      lenght:
-        type: integer
-      active:
-        type: boolean
-      expiration_date:
-        type: string
-      is_europe:
-        type: boolean
-      package_id:
-        type: integer
-
-  NotificationObject:
-    type: object
-    required:
-      - id
-      - user_id
-      - message
-      - seen
-      - createdAt
-      - updatedAt
-    properties:
-      id:
-        type: integer
-      user_id:
-        type: integer
-      message:
-        type: string
-      seen:
-        type: boolean
-      createdAt:
-        type: string
-      updatedAt:
-        type: string
-
-  ContractObject:
-    type: object
-    required:
-      - id
-      - contract_number
-      - name
-      - email
-      - jmbg
-      - phone_number
-      - address
-      - licence_plate
-      - vehicle
-      - vehicle_type
-      - chassie_number
-      - lenght
-      - active
-      - expiration_date
-      - is_europe
-      - user_id
-      - package_id
-      - createdAt
-      - updatedAt
-    properties:
-      id:
-        type: string
-      contract_number:
-        type: string
-      name:
-        type: string
-      email:
-        type: string
-      jmbg:
-        type: string
-      phone_number:
-        type: string
-      address:
-        type: string
-      licence_plate:
-        type: string
-      vehicle:
-        type: string
-      vehicle_type:
-        type: string
-      chassie_number:
-        type: string
-      lenght:
-        type: integer
-      active:
-        type: boolean
-      expiration_date:
-        type: string
-      is_europe:
-        type: boolean
-      user_id:
-        type: integer
-      package_id:
-        type: integer
-      createdAt:
-        type: string
-      updatedAt:
-        type: string
-
-  PackageObject:
-    type: object
-    required:
-      - id
-      - name
-      - price
-      - total_usage
-      - is_active
-      - is_europe
-      - createdAt
-      - updatedAt
-    properties:
-      id:
-        type: integer
-      name:
-        type: string
-      price:
-        type: number
-      total_usage:
-        type: integer
-      is_active:
-        type: boolean
-      is_europe:
-        type: boolean
-      createdAt:
-        type: string
-      updatedAt:
-        type: string
-
-  ContractUsageObject:
-    type: object
-    required:
-      - id
-      - contract_id
-      - usage_date
-      - comment
-    properties:
-      id:
-        type: integer
-      contract_id:
-        type: integer
-      usage_date:
-        type: string
-      comment:
-        type: string
-
-  PackageAttributes:
-    type: object
-    required:
-      - name
-      - price
-      - total_usage
-      - is_active
-      - is_europe
-    properties:
-      name:
-        type: string
-      price:
-        type: number
-      total_usage:
-        type: integer
-      is_active:
-        type: boolean
-      is_europe:
-        type: boolean
-
-  ContractUsageAttributes:
-    type: object
-    required:
-      - contract_id
-    properties:
-      contract_id:
-        type: integer
-      comment:
-        type: string
+        type: object
+        required:
+          - user
+        properties:
+          user:
+            type: 'array'
+            items:
+              $ref: "#/definitions/User"

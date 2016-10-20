@@ -9,6 +9,12 @@ module.exports = {
   schema: true,
 
   attributes: {
+    ime: {
+      type: 'string',
+      required: true,
+      alphanumericdashed: true
+    },
+
     username: {
       type: 'string',
       required: true,
@@ -16,20 +22,9 @@ module.exports = {
       alphanumericdashed: true
     },
 
-    name: {
-      type: 'string',
-      required: true
-    },
-
     password: {
       type: 'string',
       required: true
-    },
-
-    role: {
-      type: 'string',
-      enum: ['super_admin', 'shop_admin', 'user'],
-      defaultsTo: 'user'
     },
 
     email: {
@@ -38,25 +33,13 @@ module.exports = {
       required: true
     },
 
-    is_europe: {
-      type: 'boolean',
-      defaultsTo: false
-    },
-
-    shop: {
+    rola: {
       type: 'string',
-      required: true
+      enum: ['super_admin', 'menadzer', 'korisnik'],
+      defaultsTo: 'korisnik'
     },
 
-    contracts: {
-      collection: 'contract',
-      via: 'user_id'
-    },
-
-    notifications: {
-      collection: 'notification',
-      via: 'user_id'
-    },
+    //TODO poslovnica
 
     toJSON() {
       let obj = this.toObject();

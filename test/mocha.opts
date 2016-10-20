@@ -1,3 +1,4 @@
+--timeout 40s
 ./test/bootstrap.js
 ./test/unit/**/*.test.js
 --reporter spec

@@ -8,18 +8,6 @@
 const CronJob = require('cron').CronJob;
 module.exports = {
   bootstrap: cb => {
-    let today = new Date();
-    new CronJob('00 10 00 * * *', function() {
-      console.log('Checking expired contracts at ' + today);
-      Contract.find().then(contracts => {
-        contracts.map(contract => {
-          if(contract.expiration_date < today) {
-            contract.active = false;
-            contract.save();
-          }
-        });
-      })
-    }, null, true, 'Europe/Berlin');
     cb();
   }
 };
