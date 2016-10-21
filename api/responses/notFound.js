@@ -12,7 +12,7 @@
 
    const response = Object.assign({
      status: 'fail',
-     data: {
+     data: data || {
         message: 'The requested resource could not be found but may be available again in the future.'
      }
    }, config);

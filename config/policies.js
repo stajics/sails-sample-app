@@ -14,7 +14,7 @@
 module.exports = {
   policies: {
     "v1/UserController": {
-      read: ["isAuthenticated"],
+      read: ["isAuthenticated", "isManager"],
       update: ["isAuthenticated", "isManager" ],
       delete: ["isAuthenticated", "isManager" ]
     },

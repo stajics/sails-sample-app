@@ -1,5 +1,5 @@
 "use strict";
-
+const util = require('util');
 /**
  * 400 (Bad Request) Response
  *
@@ -10,7 +10,7 @@
 
  module.exports = function (data, config) {
    console.log(data);
-
+   data = util.inspect(data);
    const response = Object.assign({
      status: 'fail',
      data: data || null

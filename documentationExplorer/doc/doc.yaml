@@ -150,7 +150,7 @@ paths:
         "200":
           description: All users.
           schema:
-            $ref: "#/definitions/UsersResponse"
+            $ref: "#/definitions/DeleteUsersResponse"
     put:
       security:
         - Bearer: []
@@ -174,7 +174,7 @@ paths:
           description: Attributes and values that will be updated.
           required: true
           schema:
-            $ref: "#/definitions/UserAttributes"
+            $ref: "#/definitions/PutUsersBody"
       responses:
         "200":
           description: User updated.
@@ -257,6 +257,18 @@ definitions:
       email:
         type: string
 
+  PutUsersBody:
+    type: object
+    properties:
+      username:
+        type: string
+      ime:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+
   UsersSignInBody:
     type: object
     required:
@@ -321,6 +333,4 @@ definitions:
           - user
         properties:
           user:
-            type: 'array'
-            items:
-              $ref: "#/definitions/User"
+            $ref: "#/definitions/User"

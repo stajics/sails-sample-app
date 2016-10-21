@@ -9,7 +9,7 @@
 
  module.exports = function (data, config) {
    console.log(data);
-
+   data = util.inspect(data);
    const response = Object.assign({
      status: 'error',
      message: 'Something bad happened on the server.',

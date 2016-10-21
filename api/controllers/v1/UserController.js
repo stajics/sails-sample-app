@@ -1,10 +1,6 @@
 "use strict";
 
-/**
- * UserController
- * @description :: Server-side logic for manage users
- */
-import { omit, get, isNumber } from 'lodash';
+import { omit, get, isEmpty } from 'lodash';
 
 module.exports = {
   read: async(req, res) => {
@@ -12,10 +8,11 @@ module.exports = {
       let users = null;
       if( req.params.id ){
         users = await User.findOne({id: req.params.id}).populateAll();
+        res.ok({ user: users });
         } else {
         users = await User.find().populateAll();
+        res.ok({ users });
       }
-      res.ok({ users });
     } catch (err) {
       res.badRequest(err);
     };
@@ -23,16 +20,12 @@ module.exports = {
 
   update: async(req, res) => {
     try {
-      const values = omit(req.allParams(), 'id');
-      if( Number.parseInt(req.params.id) ){
-        let updatedUser = await User.update({ id: Number.parseInt(req.params.id) }, values);
-        if( !updatedUser.length ) {
-          return res.notFound("No user with that ID.");
-        }
-        res.ok({user: updatedUser[0]});
-      } else {
-        res.badRequest("Invalid user_id.");
+      const values = omit(req.allParams(), ['id', 'rola']);
+      let updatedUser = await User.update({ id: req.params.id }, values);
+      if( isEmpty(updatedUser) ) {
+        return res.notFound("No user with that ID.");
       }
+      res.ok({user: updatedUser[0]});
     } catch (err) {
       res.badRequest(err);
     };
@@ -40,18 +33,14 @@ module.exports = {
 
   delete: async(req, res) => {
     try {
-      if( Number.parseInt(req.params.id) ){
-        let deletedUser = await User.destroy({ id: Number.parseInt(req.params.id) });
-        if( !deletedUser.length ) {
+        let deletedUser = await User.destroy({ id: req.params.id });
+        if( isEmpty(deletedUser) ) {
           return res.notFound("No user with that ID.");
         }
         res.ok({user: deletedUser[0]});
-      } else {
-        res.badRequest("Invalid user_id.");
-      }
     } catch (err) {
       res.badRequest(err);
     };
   },
-  
+
 };
