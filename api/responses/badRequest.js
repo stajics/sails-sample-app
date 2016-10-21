@@ -1,5 +1,5 @@
 "use strict";
-const util = require('util');
+
 /**
  * 400 (Bad Request) Response
  *
@@ -7,17 +7,18 @@ const util = require('util');
  * General error when fulfilling the request would cause an invalid state.
  * Domain validation errors, missing data, etc.
  */
+const util = require('util');
 
- module.exports = function (data, config) {
-   if(sails.config.log.consoleLogErrorResponses){
-     console.log(data);
-   }
-   data = util.inspect(data);
-   const response = Object.assign({
-     status: 'fail',
-     data: data || null
-   }, config);
+module.exports = function (data, config) {
+  if(sails.config.log.consoleLogErrorResponses){
+    console.log(data);
+  }
+  data = util.inspect(data);
+  const response = Object.assign({
+    status: 'fail',
+    data: data || null
+  }, config);
 
-   this.res.status(400);
-   this.res.jsonx(response);
+  this.res.status(400);
+  this.res.jsonx(response);
  };

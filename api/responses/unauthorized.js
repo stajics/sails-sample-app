@@ -17,7 +17,7 @@
      status: 'fail',
      data: data || null
    }, config);
-
+   
    this.res.status(401);
    this.res.jsonx(response);
  };
