@@ -2,8 +2,11 @@
 
 module.exports.secrets = {
   jwtSecretKey: process.env.CHIPHER_JWT_SECRET_KEY || require('node-uuid').v4(),  //required (or defaults to new secret every server restart)
-  hashPassword: process.env.HASH_PASSWORD  //required
-}
+  hashPassword: process.env.HASH_PASSWORD,  //required
+
+  //db
+  dbPassword: process.env.GREENAUTO_DB_PASSWORD || ""
+};
 
 /*
 Example from .bashrc:

@@ -20,7 +20,7 @@ module.exports = {
     },
 
     "v1/user/RegistrationController": {
-      //create: ["isAuthenticated", "isManager" ]
+      create: ["isAuthenticated", "isManager" ]
     },
 
     "v1/user/SessionController": {

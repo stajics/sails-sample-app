@@ -37,7 +37,9 @@ module.exports = {
         if( isEmpty(deletedUser) ) {
           return res.notFound("No user with that ID.");
         }
-        res.ok({user: deletedUser[0]});
+        deletedUser = deletedUser[0];
+        delete deletedUser.password;
+        res.ok({user: deletedUser});
     } catch (err) {
       res.badRequest(err);
     };

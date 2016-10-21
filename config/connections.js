@@ -11,6 +11,7 @@
  * NOTE: If you're using version control, you should put your passwords/api keys
  * in `config/local.js`, environment variables, or use another strategy.
  */
+const secrets = require('./secrets').secrets;
 
 module.exports = {
   connections: {
@@ -23,7 +24,7 @@ module.exports = {
       host: 'localhost',
       port: 3306,
       user: 'root',
-      password: 'srle111',
+      password: secrets.dbPassword,
       database: 'greenauto_development',
       charset: 'utf8',
       collation: 'utf8_swedish_ci'
@@ -34,7 +35,7 @@ module.exports = {
       host: 'localhost',
       port: 3306,
       user: 'root',
-      password: 'srle111',
+      password: secrets.dbPassword,
       database: 'greenauto_test',
       charset: 'utf8',
       collation: 'utf8_swedish_ci'

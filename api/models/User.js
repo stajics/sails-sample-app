@@ -64,11 +64,5 @@ module.exports = {
     }
     values.password = CipherService.encrypt(values.password);
     next();
-    // return HashService.bcrypt.hash(values.password)
-    //   .then(hash => {
-    //     values.password = hash;
-    //     next();
-    //   })
-    //   .catch(next);
   }
 };

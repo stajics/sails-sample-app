@@ -1,5 +1,6 @@
 --timeout 40s
 ./test/bootstrap.js
-./test/unit/**/*.test.js
+./test/integration/**/*.test.js
+./test/integration/**/**/*.test.js
 --reporter spec
 --recursive

@@ -9,7 +9,9 @@ const util = require('util');
  */
 
  module.exports = function (data, config) {
-   console.log(data);
+   if(sails.config.log.consoleLogErrorResponses){
+     console.log(data);
+   }
    data = util.inspect(data);
    const response = Object.assign({
      status: 'fail',

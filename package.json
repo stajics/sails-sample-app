@@ -18,7 +18,6 @@
     "sails-memory": "^0.10.5",
     "sails-mysql": "^0.11.5",
     "sails-service-cipher": "^3.2.1",
-    "sails-service-hash": "^3.2.1",
     "yamljs": "^0.2.8"
   },
   "devDependencies": {
@@ -34,8 +33,6 @@
   },
   "scripts": {
     "clean": "rm -rf ./.tmp",
-    "debug": "node debug app.js",
-    "docs": "esdoc -c esdoc.json",
     "start": "node app.js",
     "test": "istanbul cover _mocha"
   }

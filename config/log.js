@@ -7,6 +7,7 @@
 
 module.exports = {
   log: {
+    consoleLogErrorResponses: false,
     /**
      * Winston logging level for the console transport
      * @type {String}

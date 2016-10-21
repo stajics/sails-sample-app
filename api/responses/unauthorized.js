@@ -8,9 +8,11 @@
  * Error code response for missing or invalid authentication token.
  */
 
- module.exports = function (data, config) {
-   console.log(data);
-   
+ module.exports = function (data, config) { //TODO adjust response to signin without params to meet JSend
+   if(sails.config.log.consoleLogErrorResponses){
+     console.log(data);
+   }
+
    const response = Object.assign({
      status: 'fail',
      data: data || null
