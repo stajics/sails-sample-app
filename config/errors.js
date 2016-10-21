@@ -10,7 +10,7 @@
 module.exports = {
   errors: {
     USER_NOT_FOUND: {
-      message: 'User with specified credentials is not found'
+      data: 'User with specified credentials is not found'
     }
   }
 };

@@ -10,6 +10,7 @@
 
  module.exports = function (data, config) {
    console.log(data);
+   
    const response = Object.assign({
      status: 'fail',
      data: data || null

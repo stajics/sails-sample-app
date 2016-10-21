@@ -8,7 +8,7 @@
  */
 
  module.exports = function (data, config) {
-   console.log("AAAA");
+   console.log(data);
 
    const response = Object.assign({
      status: 'error',

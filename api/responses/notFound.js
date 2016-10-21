@@ -9,6 +9,7 @@
  */
 
  module.exports = function (data, config) {
+
    const response = Object.assign({
      status: 'fail',
      data: {

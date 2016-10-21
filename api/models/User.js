@@ -54,23 +54,21 @@ module.exports = {
     if (!values.hasOwnProperty('password')) {
       return next();
     }
-    return HashService.bcrypt.hash(values.password)
-      .then(hash => {
-        values.password = hash;
-        next();
-      })
-      .catch(next);
+    values.password = CipherService.encrypt(values.password);
+    next();
   },
 
   beforeUpdate(values, next) {
     if (!values.hasOwnProperty('password')) {
       return next();
     }
-    return HashService.bcrypt.hash(values.password)
-      .then(hash => {
-        values.password = hash;
-        next();
-      })
-      .catch(next);
+    values.password = CipherService.encrypt(values.password);
+    next();
+    // return HashService.bcrypt.hash(values.password)
+    //   .then(hash => {
+    //     values.password = hash;
+    //     next();
+    //   })
+    //   .catch(next);
   }
 };
