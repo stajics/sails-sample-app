@@ -191,6 +191,20 @@ describe('controllers:UserController', () => {
         });
     });
 
+    it('Should get error. (can not delete myself)', (done) => {
+      request.delete(`v1/users/${existingUser.id}`).set({
+          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
+        })
+        .send()
+        .expect(400)
+        .end(function(err, res) {
+          if (err) throw err;
+          res.body.should.have.keys('status', 'data');
+          res.body.status.should.equal('fail');
+          done();
+        });
+    });
+
     it('Should get error. (user does not exist)', (done) => {
       request.delete(`v1/users/${existingUser1.id}`).set({
           'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`

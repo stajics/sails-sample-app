@@ -33,13 +33,16 @@ module.exports = {
 
   delete: async(req, res) => {
     try {
-        let deletedUser = await User.destroy({ id: req.params.id });
-        if( isEmpty(deletedUser) ) {
+        let userForDelete = await User.findOne({ id: req.params.id });
+        if( isEmpty(userForDelete) ) {
           return res.notFound("No user with that ID.");
         }
-        deletedUser = deletedUser[0];
-        delete deletedUser.password;
-        res.ok({user: deletedUser});
+        if( userForDelete.id === req.user.id ) {
+          return res.badRequest("Can't delete urself.");
+        }
+        await userForDelete.destroy();
+        delete userForDelete.password;
+        res.ok({user: userForDelete});
     } catch (err) {
       res.badRequest(err);
     };
