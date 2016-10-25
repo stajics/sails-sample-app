@@ -27,13 +27,16 @@
     "esdoc": "0.4.3",
     "istanbul": "0.4.2",
     "mocha": "2.3.4",
+    "nodemon": "^1.11.0",
     "sails-memory": "0.10.5",
     "sinon": "1.17.2",
     "supertest": "^2.0.1"
   },
   "scripts": {
     "clean": "rm -rf ./.tmp",
-    "start": "node app.js",
+    "debug": "node debug app.js",
+    "docs": "esdoc -c esdoc.json",
+    "start": "nodemon -L app.js",
     "test": "istanbul cover _mocha"
   }
 }

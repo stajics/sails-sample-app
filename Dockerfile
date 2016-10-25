@@ -1,10 +1,5 @@
-FROM node:slim
+FROM node:latest
 
-MAINTAINER Eugene Obrezkov <ghaiklor@gmail.com>
+WORKDIR /usr/src
 
-RUN mkdir /app
-VOLUME ["/app"]
-WORKDIR /app
 EXPOSE 3000
-
-CMD npm start
