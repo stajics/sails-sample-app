@@ -4,9 +4,9 @@
  * HTTP Server Settings
  * Configuration for the underlying HTTP server in Sails
  */
-
- var colors = require('colors');
- var moment = require('moment');
+const util = require('util');
+const colors = require('colors');
+const moment = require('moment');
 
 module.exports = {
   /**
@@ -95,6 +95,18 @@ module.exports = {
           sails.log.info(color.yellow("|"), color(req.method), req.url, color.yellow("|"), "at [" + requestStartTime + "]", color.yellow("|"), color.cyan('Response:'), 'Status: ' + res.statusCode+ ",", 'Response time: ' + res.get('X-Response-Time'), color.yellow("|"));
         });
         require('response-time')()(req, res, next);
+      },
+
+      500: (err, req, res, next) => {
+        err = util.inspect(err);
+        const response = {
+          status: 'error',
+          message: 'Something bad happened on the server.',
+          data: err || null
+        };
+
+        res.status(500);
+        res.json(response);
       },
       /**
        * The order in which middleware should be run for HTTP request

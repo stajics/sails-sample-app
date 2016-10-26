@@ -5,6 +5,7 @@ module.exports.secrets = {
   hashPassword: process.env.HASH_PASSWORD,  //required
 
   //db
+  ip: process.env.GREENAUTO_MYSQL_IP || '172.17.0.1',
   dbPassword: process.env.GREENAUTO_DB_PASSWORD || ""
 };
 

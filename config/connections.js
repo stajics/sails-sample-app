@@ -21,7 +21,7 @@ module.exports = {
      */
     mysql: {
       adapter: 'sails-mysql',
-      host: process.env.GREENAUTO_MYSQL_PORT_3306_TCP_ADDR,
+      host: secrets.ip,
       port: 3306,
       user: 'root',
       password: secrets.dbPassword,
@@ -32,7 +32,7 @@ module.exports = {
 
     test: {
       adapter: 'sails-mysql',
-      host: process.env.GREENAUTO_MYSQL_PORT_3306_TCP_ADDR,
+      host: secrets.ip,
       port: 3306,
       user: 'root',
       password: secrets.dbPassword,
