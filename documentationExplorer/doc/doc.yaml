@@ -6,7 +6,7 @@ swagger: "2.0"
 ################################################################################
 info:
   version: "1.0"
-  title: GreenAuto-Backend
+  title: BasicSailsApp
   description: API
 # during dev, should point to your local machine
 host: "localhost:3000"

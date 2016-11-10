@@ -1,9 +1,9 @@
-"use strict";
+
 
 import { omit } from 'lodash';
 
 module.exports = {
-  create: async(req, res) => {
+  create: async (req, res) => {
     try {
       const values = omit(req.allParams(), ['id', 'rola', 'poslovnica']);
       let newUser = await User.create(values);

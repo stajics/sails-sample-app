@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Cross-Origin Resource Sharing (CORS) Settings
  *
@@ -33,6 +31,6 @@ module.exports = {
     /**
      * Which headers should be allowed for CORS requests?
      */
-    headers: 'content-type, authorization'
-  }
+    headers: 'content-type, authorization',
+  },
 };

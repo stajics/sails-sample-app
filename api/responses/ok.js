@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * 200 (OK) Response
  *
@@ -9,11 +7,10 @@
  * In a POST request the response will contain an entity describing or containing the result of the action.
  */
 
-module.exports = function (data, config) {
-
+module.exports = function ok(data, config) {
   const response = Object.assign({
     status: 'success',
-    data: data || null
+    data: data || null,
   }, config);
 
   this.res.status(200);

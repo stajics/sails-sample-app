@@ -1,5 +1,4 @@
-"use strict";
-
+/* eslint import/no-extraneous-dependencies: 'off' */
 const assert = require('chai').assert;
 const CipherService = require('../../../api/services/CipherService');
 

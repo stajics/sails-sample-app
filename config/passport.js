@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Passport configuration file where you should configure all your strategies
  * @description :: Configuration file where you configure your passport authentication
@@ -20,7 +18,7 @@ const LOCAL_STRATEGY_CONFIG = {
   usernameField: 'username',
   passwordField: 'password',
   session: false,
-  passReqToCallback: true
+  passReqToCallback: true,
 };
 
 /**
@@ -30,10 +28,10 @@ const LOCAL_STRATEGY_CONFIG = {
  */
 const JWT_STRATEGY_CONFIG = {
   secretOrKey: secrets.jwtSecretKey,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
   authScheme: 'Bearer',
   session: false,
-  passReqToCallback: true
+  passReqToCallback: true,
 };
 
 /**
@@ -44,10 +42,11 @@ const JWT_STRATEGY_CONFIG = {
  * @param {Function} next Callback
  * @private
  */
+  /* eslint no-underscore-dangle: 'off' */
 const _onLocalStrategyAuth = (req, username, password, next) => {
   User
-    .findOne({[LOCAL_STRATEGY_CONFIG.usernameField]: username})
-    .then(user => {
+    .findOne({ [LOCAL_STRATEGY_CONFIG.usernameField]: username })
+    .then((user) => {
       if (!user) return next(null, null, sails.config.errors.USER_NOT_FOUND);
       if (password !== CipherService.decrypt(user.password)) return next(null, null, sails.config.errors.USER_NOT_FOUND);
       return next(null, user, {});
@@ -64,8 +63,8 @@ const _onLocalStrategyAuth = (req, username, password, next) => {
  */
 const _onJwtStrategyAuth = (req, payload, next) => {
   User
-    .findOne({id: payload.id})
-    .then(user => {
+    .findOne({ id: payload.id })
+    .then((user) => {
       if (!user) return next(null, null, sails.config.errors.USER_NOT_FOUND);
       return next(null, user, {});
     })
@@ -88,12 +87,11 @@ module.exports = {
     onPassportAuth(req, res, error, user, info) {
       if (error || !user) return res.unauthorized(error, info);
       return res.ok({
-        user: user,
-        token: CipherService.jwt.encodeSync({id: user.id}),
-        user: user
+        user,
+        token: CipherService.jwt.encodeSync({ id: user.id }),
       });
-    }
-  }
+    },
+  },
 };
 
 passport.use(new LocalStrategy(_.assign({}, LOCAL_STRATEGY_CONFIG), _onLocalStrategyAuth));

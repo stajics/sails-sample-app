@@ -1,4 +1,4 @@
-"use strict";
+
 
 import _ from 'lodash';
 import Passport from 'passport';

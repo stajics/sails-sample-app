@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * 400 (Bad Request) Response
  *
@@ -9,16 +7,16 @@
  */
 const util = require('util');
 
-module.exports = function (data, config) {
-  if(sails.config.log.consoleLogErrorResponses){
+module.exports = function badRequest(data, config) {
+  if (sails.config.log.consoleLogErrorResponses) {
     console.log(data);
   }
-  data = util.inspect(data);
+  const responseData = util.inspect(data);
   const response = Object.assign({
     status: 'fail',
-    data: data || null
+    data: responseData || null,
   }, config);
 
   this.res.status(400);
   this.res.jsonx(response);
- };
+};

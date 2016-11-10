@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Winston Logger Configuration
  * For detailed information take a look here - https://github.com/Kikobeats/sails-hook-winston
@@ -29,6 +27,6 @@ module.exports = {
      *   config: {}
      * }]
      */
-    transports: []
-  }
+    transports: [],
+  },
 };

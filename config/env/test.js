@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Test environment settings
  * @description :: This section overrides all other config values ONLY in test environment
@@ -7,14 +5,14 @@
 
 module.exports = {
   log: {
-    level: 'silent'
+    level: 'silent',
   },
   models: {
     connection: 'test',
-    migrate: 'drop'
+    migrate: 'drop',
   },
   policies: {
-    '*': true
+    '*': true,
   },
   hooks: {
     csrf: false,
@@ -23,6 +21,6 @@ module.exports = {
     pubsub: false,
     session: false,
     sockets: false,
-    views: false
-  }
+    views: false,
+  },
 };

@@ -1,16 +1,35 @@
 {
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "sourceType": "module"
-    },
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
     "rules": {
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
+      "max-len": [2, {"code": 200, "ignoreUrls": true, "ignoreComments": true}],
+      "linebreak-style": "off",
+      "no-unused-vars": ["error", { "vars": "all", "args": "none" }]
+    },
+    "globals": {
+      "Taksa": true,
+      "StavkaOsiguranja": true,
+      "Opstina": true,
+      "Osiguranje": true,
+      "Poslovnica": true,
+      "StavkaOsiguranja": true,
+      "User": true,
+      "Usluga": true,
+      "CipherService": true,
+      "sails": true,
+      "before": true,
+      "after": true,
+      "describe": true,
+      "it": true,
+      "Taksa": true,
+      "Taksa": true,
+      "Taksa": true,
+      "Taksa": true,
+      "Taksa": true,
+      "Taksa": true
     }
 }

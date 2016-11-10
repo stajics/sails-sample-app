@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Configuration file where you can store error codes for responses
  *
@@ -10,7 +8,7 @@
 module.exports = {
   errors: {
     USER_NOT_FOUND: {
-      data: 'User with specified credentials is not found'
-    }
-  }
+      data: 'User with specified credentials is not found',
+    },
+  },
 };

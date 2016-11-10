@@ -1,9 +1,8 @@
-"use strict";
-
 /**
  * HTTP Server Settings
  * Configuration for the underlying HTTP server in Sails
  */
+ /* eslint max-len: 'off', global-require: 'off', no-param-reassign: 'off' */
 const util = require('util');
 const colors = require('colors');
 const moment = require('moment');
@@ -27,7 +26,7 @@ module.exports = {
    */
   ssl: {
     cert: false,
-    key: false
+    key: false,
   },
 
   http: {
@@ -43,7 +42,7 @@ module.exports = {
      * You can define own custom middleware here
      * @param app Express application
      */
-    customMiddleware: app => {
+    customMiddleware: (app) => {
 
     },
 
@@ -72,9 +71,9 @@ module.exports = {
       },
 
       requestLogger: (req, res, next) => {
-        var requestStartTime = moment().format('M/D/YYYY, HH:mm:ss Z');
-        res.on("finish", function() {
-          var color = colors.white;
+        const requestStartTime = moment().format('M/D/YYYY, HH:mm:ss Z');
+        res.on('finish', () => {
+          let color = colors.white;
           switch (req.method) {
             case 'GET':
               color = colors.blue;
@@ -92,7 +91,7 @@ module.exports = {
             default:
 
           }
-          sails.log.info(color.yellow("|"), color(req.method), req.url, color.yellow("|"), "at [" + requestStartTime + "]", color.yellow("|"), color.cyan('Response:'), 'Status: ' + res.statusCode+ ",", 'Response time: ' + res.get('X-Response-Time'), color.yellow("|"));
+          sails.log.info(color.yellow('|'), color(req.method), req.url, color.yellow('|'), `at [${requestStartTime}]`, color.yellow('|'), color.cyan('Response:'), `Status: ${res.statusCode},`, `Response time: ${res.get('X-Response-Time')},`, color.yellow('|'));
         });
         require('response-time')()(req, res, next);
       },
@@ -102,7 +101,7 @@ module.exports = {
         const response = {
           status: 'error',
           message: 'Something bad happened on the server.',
-          data: err || null
+          data: err || null,
         };
 
         res.status(500);
@@ -120,8 +119,8 @@ module.exports = {
         '$custom',
         'router',
         '404',
-        '500'
-      ]
-    }
-  }
+        '500',
+      ],
+    },
+  },
 };

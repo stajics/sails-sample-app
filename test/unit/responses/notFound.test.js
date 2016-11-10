@@ -1,5 +1,4 @@
-"use strict";
-
+/* eslint import/no-extraneous-dependencies: 'off' */
 const assert = require('chai').assert;
 const sinon = require('sinon');
 const notFound = require('../../../api/responses/notFound');
@@ -7,8 +6,8 @@ const notFound = require('../../../api/responses/notFound');
 const context = {
   res: {
     status: sinon.spy(),
-    jsonx: sinon.spy()
-  }
+    jsonx: sinon.spy(),
+  },
 };
 
 describe('responses:notFound', () => {
@@ -17,25 +16,25 @@ describe('responses:notFound', () => {
     assert.ok(context.res.status.calledWith(404));
     assert.ok(context.res.jsonx.calledWith({
       status: 'fail',
-      data: { message: 'The requested resource could not be found but may be available again in the future.' }
+      data: { message: 'The requested resource could not be found but may be available again in the future.' },
     }));
   });
 
   it('Should generate response with data param', () => {
-    notFound.call(context, {message: 'test'});
+    notFound.call(context, { message: 'test' });
     assert.ok(context.res.status.calledWith(404));
     assert.ok(context.res.jsonx.calledWith({
       status: 'fail',
-      data: {message: 'test' }
+      data: { message: 'test' },
     }));
   });
 
   it('Should generate response with config param', () => {
-    notFound.call(context, {message: 'test'}, {data: {message: 'test1'}});
+    notFound.call(context, { message: 'test' }, { data: { message: 'test1' } });
     assert.ok(context.res.status.calledWith(404));
     assert.ok(context.res.jsonx.calledWith({
       status: 'fail',
-      data: { message: 'test1' }
+      data: { message: 'test1' },
     }));
   });
 });

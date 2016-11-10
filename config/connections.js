@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Connections API Configuration
  *
@@ -25,9 +23,9 @@ module.exports = {
       port: 3306,
       user: 'root',
       password: secrets.dbPassword,
-      database: 'greenauto_development',
+      database: 'basic_sails_app_development',
       charset: 'utf8',
-      collation: 'utf8_swedish_ci'
+      collation: 'utf8_swedish_ci',
     },
 
     test: {
@@ -36,9 +34,9 @@ module.exports = {
       port: 3306,
       user: 'root',
       password: secrets.dbPassword,
-      database: 'greenauto_test',
+      database: 'basic_sails_app_test',
       charset: 'utf8',
-      collation: 'utf8_swedish_ci'
+      collation: 'utf8_swedish_ci',
     },
-  }
+  },
 };

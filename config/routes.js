@@ -1,4 +1,4 @@
-"use strict";
+
 
 /**
  * Route Mappings
@@ -17,7 +17,7 @@ module.exports = {
     'PUT /v1/users/:id': 'v1/UserController.update',
     'DELETE /v1/users/:id': 'v1/UserController.delete',
 
-    //Documentation
+    // Documentation
     'GET /v1/doc': 'v1/DocumentationController.getDocumentationJson',
-  }
+  },
 };

@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Global Variable Configuration
  * Configure which global variables which will be exposed automatically by Sails.
@@ -35,6 +33,6 @@ module.exports = {
      * Expose each of your app's models as global variables
      * @type {Boolean}
      */
-    models: true
-  }
+    models: true,
+  },
 };

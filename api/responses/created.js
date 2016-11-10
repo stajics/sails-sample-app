@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * 201 (Created) Response
  *
@@ -9,14 +7,12 @@
  * Response body content may or may not be present.
  */
 
- module.exports = function (data, config) {
+module.exports = function created(data, config) {
+  const response = Object.assign({
+    status: 'success',
+    data: data || null,
+  }, config);
 
-   const response = Object.assign({
-     status: 'success',
-     data: data || null
-   }, config);
-
-
-   this.res.status(201);
-   this.res.jsonx(response);
- };
+  this.res.status(201);
+  this.res.jsonx(response);
+};

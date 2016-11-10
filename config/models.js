@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Default model configuration
  *
@@ -19,6 +17,6 @@ module.exports = {
      * Available values is `safe`, `alter` or `drop`
      * @type {String}
      */
-    migrate: 'alter'
-  }
+    migrate: 'alter',
+  },
 };
