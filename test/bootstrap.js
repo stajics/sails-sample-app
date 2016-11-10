@@ -4,6 +4,7 @@ const config = require('../config/env/test');
 let sails;
 
 before((done) => {
+  process.env.NODE_ENV = 'test';
   Sails.lift(config, (error, server) => {
     if (error) return done(error);
 

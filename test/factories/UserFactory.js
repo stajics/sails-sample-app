@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const create = () => {
-  const randomNumber = _.random(1, 1000);
+  const randomNumber = _.random(1, 1000000);
   return User.create({
     username: `username${randomNumber}`,
     ime: `ime${randomNumber}`,
@@ -11,7 +11,7 @@ const create = () => {
 };
 
 const createSuperUser = () => {
-  const randomNumber = _.random(1, 100000);
+  const randomNumber = _.random(1, 1000000);
   return User.create({
     username: `username${randomNumber}`,
     ime: `ime${randomNumber}`,
@@ -22,7 +22,7 @@ const createSuperUser = () => {
 };
 
 const createManager = () => {
-  const randomNumber = _.random(1, 1000);
+  const randomNumber = _.random(1, 1000000);
   return User.create({
     username: `username${randomNumber}`,
     ime: `ime${randomNumber}`,

@@ -4,8 +4,7 @@
  */
  /* eslint max-len: 'off', global-require: 'off', no-param-reassign: 'off' */
 const util = require('util');
-const colors = require('colors');
-const moment = require('moment');
+const morgan = require('morgan');
 
 module.exports = {
   /**
@@ -70,31 +69,7 @@ module.exports = {
         next();
       },
 
-      requestLogger: (req, res, next) => {
-        const requestStartTime = moment().format('M/D/YYYY, HH:mm:ss Z');
-        res.on('finish', () => {
-          let color = colors.white;
-          switch (req.method) {
-            case 'GET':
-              color = colors.blue;
-              break;
-            case 'POST':
-              color = colors.green;
-              break;
-            case 'PATCH':
-            case 'PUT':
-              color = colors.yellow;
-              break;
-            case 'DELETE':
-              color = colors.red;
-              break;
-            default:
-
-          }
-          sails.log.info(color.yellow('|'), color(req.method), req.url, color.yellow('|'), `at [${requestStartTime}]`, color.yellow('|'), color.cyan('Response:'), `Status: ${res.statusCode},`, `Response time: ${res.get('X-Response-Time')},`, color.yellow('|'));
-        });
-        require('response-time')()(req, res, next);
-      },
+      morgan: process.env.NODE_ENV !== 'test' ? morgan('dev') : null,
 
       500: (err, req, res, next) => {
         err = util.inspect(err);
@@ -112,7 +87,7 @@ module.exports = {
        * @type {Array}
        */
       order: [
-        'requestLogger',
+        'morgan',
         'compress',
         'keepAlive',
         'bodyParser',

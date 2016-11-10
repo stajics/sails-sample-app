@@ -1,8 +1,19 @@
 # basic-sails-app
 
+##### Features:
+* docker (https://www.docker.com/)
+* eslint-config-airbnb linting. (https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
+* passport.js authorization (JWT)  (http://passportjs.org/)
+* swagger documentation (http://swagger.io/)
+* mocha tests, istanbul cover test
+* babel
+
+##### Description:
+Sails.js boilerplate with User CRUD and authorization. Using MySQL database.
+
 ## Installation
 
-Must have docker installed.
+Must have docker installed. (https://www.docker.com/)
 
 Clone the repository and run the following commands under your project root:
 
