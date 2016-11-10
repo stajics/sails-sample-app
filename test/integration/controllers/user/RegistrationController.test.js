@@ -10,14 +10,12 @@ const userFactory = require('../../../factories/UserFactory');
 
 describe('controllers:RegistrationController', () => {
   let existingUser = null;
-  let existingUser1 = null;
   before((done) => {
     Promise.all([
       userFactory.createManager(),
       userFactory.create(),
     ]).then((objects) => {
       existingUser = objects[0];
-      existingUser1 = objects[1];
       done();
     });
   });
@@ -29,7 +27,7 @@ describe('controllers:RegistrationController', () => {
       })
       .send({
         username: 'username',
-        ime: 'ime',
+        name: 'name',
         password: 'password',
         email: 'email@email.com',
       })
@@ -39,7 +37,7 @@ describe('controllers:RegistrationController', () => {
         res.body.should.have.all.keys('status', 'data');
         res.body.status.should.equal('success');
         res.body.data.should.have.all.keys('user', 'token');
-        res.body.data.user.should.have.all.keys('id', 'username', 'ime', 'rola', 'email', 'createdAt', 'updatedAt');
+        res.body.data.user.should.have.all.keys(userFactory.userAttributes);
         res.body.data.user.username.should.equal('username');
         done();
       });
@@ -51,7 +49,7 @@ describe('controllers:RegistrationController', () => {
       })
       .send({
         username: `${existingUser.username}`,
-        ime: 'ime',
+        name: 'name',
         password: 'password',
         email: 'email1@email.com',
       })
@@ -68,7 +66,7 @@ describe('controllers:RegistrationController', () => {
     //   request.post('v1/users/signup')
     //     .send({
     //       username: 'someUsername',
-    //       ime: 'ime',
+    //       name: 'name',
     //       password: 'password',
     //       email: 'email12@email.com',
     //     })
@@ -87,7 +85,7 @@ describe('controllers:RegistrationController', () => {
     //   })
     //   .send({
     //     username: 'someUsername',
-    //     ime: 'ime',
+    //     name: 'name',
     //     password: 'password',
     //     email: 'email12@email.com',
     //   })
@@ -106,7 +104,7 @@ describe('controllers:RegistrationController', () => {
       })
       .send({
         username: 'username1',
-        ime: 'ime',
+        name: 'name',
         password: 'password',
         email: `${existingUser.email}`,
       })
@@ -124,7 +122,7 @@ describe('controllers:RegistrationController', () => {
         authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
       })
       .send({
-        ime: 'ime',
+        name: 'name',
         password: 'password',
         email: `${existingUser.email}`,
       })

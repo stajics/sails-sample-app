@@ -2,7 +2,7 @@ module.exports = {
   schema: true,
 
   attributes: {
-    ime: {
+    name: {
       type: 'string',
       required: true,
       alphanumericdashed: true,
@@ -26,10 +26,10 @@ module.exports = {
       required: true,
     },
 
-    rola: {
+    role: {
       type: 'string',
-      enum: ['super_admin', 'menadzer', 'korisnik'],
-      defaultsTo: 'korisnik',
+      enum: ['super_user', 'manager', 'user'],
+      defaultsTo: 'user',
     },
 
     toJSON() {

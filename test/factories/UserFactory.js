@@ -1,10 +1,12 @@
 const _ = require('lodash');
 
+const userAttributes = ['id', 'username', 'name', 'role', 'email', 'createdAt', 'updatedAt'];
+
 const create = () => {
   const randomNumber = _.random(1, 1000000);
   return User.create({
     username: `username${randomNumber}`,
-    ime: `ime${randomNumber}`,
+    name: `name${randomNumber}`,
     password: 'password',
     email: `email${randomNumber}@email.com`,
   });
@@ -14,9 +16,9 @@ const createSuperUser = () => {
   const randomNumber = _.random(1, 1000000);
   return User.create({
     username: `username${randomNumber}`,
-    ime: `ime${randomNumber}`,
+    name: `name${randomNumber}`,
     password: 'password',
-    rola: 'super_user',
+    role: 'super_user',
     email: `email${randomNumber}@email.com`,
   });
 };
@@ -25,9 +27,9 @@ const createManager = () => {
   const randomNumber = _.random(1, 1000000);
   return User.create({
     username: `username${randomNumber}`,
-    ime: `ime${randomNumber}`,
+    name: `name${randomNumber}`,
     password: 'password',
-    rola: 'menadzer',
+    role: 'manager',
     email: `email${randomNumber}@email.com`,
   });
 };
@@ -39,4 +41,5 @@ module.exports = {
   createSuperUser,
   createManager,
   getToken,
+  userAttributes,
 };

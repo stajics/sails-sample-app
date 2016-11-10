@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  if (req.user.rola !== 'menadzer') {
+  if (req.user.role !== 'manager') {
     return res.unauthorized(null, {
       data: {
         message: 'User is not super admin!',

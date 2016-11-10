@@ -34,7 +34,7 @@ describe('controllers:RegistrationController', () => {
           res.body.should.have.all.keys('status', 'data');
           res.body.status.should.equal('success');
           res.body.data.should.have.all.keys('user', 'token');
-          res.body.data.user.should.have.all.keys('id', 'username', 'ime', 'rola', 'email', 'createdAt', 'updatedAt');
+          res.body.data.user.should.have.all.keys(userFactory.userAttributes);
           done();
         });
     });
@@ -109,7 +109,7 @@ describe('controllers:RegistrationController', () => {
         res.body.should.have.all.keys('status', 'data');
         res.body.status.should.equal('success');
         res.body.data.should.have.all.keys('user', 'token');
-        res.body.data.user.should.have.all.keys('id', 'username', 'ime', 'rola', 'email', 'createdAt', 'updatedAt');
+        res.body.data.user.should.have.all.keys(userFactory.userAttributes);
         done();
       });
     });

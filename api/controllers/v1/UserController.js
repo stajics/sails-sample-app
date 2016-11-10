@@ -18,7 +18,7 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const values = omit(req.allParams(), ['id', 'rola']);
+      const values = omit(req.allParams(), ['id', 'role']);
       const updatedUser = await User.update({ id: req.params.id }, values);
       if (isEmpty(updatedUser)) {
         return res.notFound('No user with that ID.');

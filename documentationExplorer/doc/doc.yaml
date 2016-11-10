@@ -46,8 +46,7 @@ paths:
         - Bearer: []
       tags:
         - User
-      summary: Add new user.
-      description: "Requires logged in user to be menadzer or super_admin."
+      summary: Register new user.
       operationId: signUp
       consumes:
         - application/json
@@ -118,6 +117,7 @@ paths:
         - User
       summary: Get all users.
       operationId: getUsers
+      description: "Requires logged in user to be manager or super_user."
       consumes:
         - application/json
       produces:
@@ -157,7 +157,7 @@ paths:
       tags:
         - User
       summary: Update user.
-      description: "Requires logged in user to be super_admin."
+      description: "Requires logged in user to be super_user."
       operationId: updateUser
       consumes:
         - application/json
@@ -187,7 +187,7 @@ paths:
       tags:
         - User
       summary: Delete user.
-      description: "Requires logged in user to be super_admin."
+      description: "Requires logged in user to be super_user."
       operationId: deleteUser
       consumes:
         - application/json
@@ -219,7 +219,7 @@ definitions:
       - username
       - ime
       - email
-      - rola
+      - role
       - createdAt
       - updatedAt
     properties:
@@ -231,9 +231,9 @@ definitions:
         type: string
       email:
         type: string
-      rola:
+      role:
         type: string
-        enum: ['korisnik', 'menadzer', 'super_admin']
+        enum: ['korisnik', 'manager', 'super_user']
       createdAt:
         type: string
       updatedAt:

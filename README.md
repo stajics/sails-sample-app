@@ -9,7 +9,7 @@
 * babel
 
 ##### Description:
-Sails.js boilerplate with User CRUD and authorization. Using MySQL database.
+Sails.js boilerplate with User CRUD, authorization and user roles access control (user, manager, super_user). Using MySQL database.
 
 ## Installation
 

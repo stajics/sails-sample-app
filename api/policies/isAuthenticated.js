@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
     if (error || !user) return res.unauthorized(error || info);
 
     req.user = user;
-
     return next();
   })(req, res);
 };

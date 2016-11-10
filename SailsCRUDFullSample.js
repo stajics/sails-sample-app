@@ -1,9 +1,8 @@
 //***********************************************************
 //*********models/Box.js
 //********************************************************
-//Box, box, Boxes, boxes
-"use strict";
-
+// Box, box, Boxes, boxes
+// Add Box to globals in eslint
 module.exports = {
   schema: true,
 
@@ -11,14 +10,14 @@ module.exports = {
     name: {
       type: 'string',
       required: true,
-      alphanumericdashed: true
+      alphanumericdashed: true,
     },
 
     toJSON() {
-      let obj = this.toObject();
+      const obj = this.toObject();
       return obj;
-    }
-  }
+    },
+  },
 
 };
 
@@ -26,63 +25,62 @@ module.exports = {
 //*********controllers/BoxController.js
 //********************************************************
 
-"use strict";
-
-import { omit, get, isEmpty } from 'lodash';
+import { omit, isEmpty } from 'lodash';
 
 module.exports = {
 
-  create: async(req, res) => {
+  create: async (req, res) => {
     try {
       const values = omit(req.allParams(), ['id']);
-      let newBox = await Box.create(values);
-      res.created({box: newBox});
+      const newBox = await Box.create(values);
+      res.created({ box: newBox });
     } catch (err) {
       res.badRequest(err);
-    };
+    }
   },
 
-  read: async(req, res) => {
+  read: async (req, res) => {
     try {
       let boxes = null;
-      if( req.params.id ){
-        boxes = await Box.findOne({id: req.params.id});
+      if (req.params.id) {
+        boxes = await Box.findOne({ id: req.params.id });
         res.ok({ box: boxes });
-        } else {
+      } else {
         boxes = await Box.find();
         res.ok({ boxes });
       }
     } catch (err) {
       res.badRequest(err);
-    };
+    }
   },
 
-  update: async(req, res) => {
+  update: async (req, res) => {
     try {
       const values = omit(req.allParams(), ['id']);
-      let updatedBox = await Box.update({ id: req.params.id }, values);
-      if( isEmpty(updatedBox) ) {
-        return res.notFound("No box with that ID.");
+      const updatedBox = await Box.update({ id: req.params.id }, values);
+      if (isEmpty(updatedBox)) {
+        return res.notFound('No box with that ID.');
       }
-      res.ok({box: updatedBox[0]});
+      return res.ok({ box: updatedBox[0] });
     } catch (err) {
-      res.badRequest(err);
-    };
+      return res.badRequest(err);
+    }
   },
 
-  delete: async(req, res) => {
+  delete: async (req, res) => {
     try {
-        let boxForDelete = await Box.destroy({ id: req.params.id });
-        if( isEmpty(boxForDelete) ) {
-          return res.notFound("No box with that ID.");
-        }
-        res.ok({box: boxForDelete[0]});
+      const boxForDelete = await Box.destroy({ id: req.params.id });
+      if (isEmpty(boxForDelete)) {
+        return res.notFound('No box with that ID.');
+      }
+      return res.ok({ box: boxForDelete[0] });
     } catch (err) {
-      res.badRequest(err);
-    };
-  }
+      return res.badRequest(err);
+    }
+  },
 
 };
+
 
 
 //***********************************************************
@@ -97,32 +95,30 @@ module.exports = {
 //***********************************************************
 //*********config/policies.js
 //********************************************************
-"v1/BoxController": {
-  create: ["isAuthenticated", "isSuperUser" ],
-  read: ["isAuthenticated", "isSuperUser"],
-  update: ["isAuthenticated", "isSuperUser" ],
-  delete: ["isAuthenticated", "isSuperUser" ]
+'v1/BoxController': {
+  create: ['isAuthenticated', 'isSuperUser'],
+  read: ['isAuthenticated', 'isSuperUser'],
+  update: ['isAuthenticated', 'isSuperUser'],
+  delete: ['isAuthenticated', 'isSuperUser'],
 },
 
 //***********************************************************
 //*********test/factories/BoxFactory.js
 //********************************************************
-"use strict";
-
 const _ = require('lodash');
 
 const boxAttributes = ['id', 'name', 'createdAt', 'updatedAt'];
 
 const create = (values = {}) => {
-  let randomNumber = _.random(1,1000);
+  const randomNumber = _.random(1, 100000);
   return Box.create({
-    name: `name${randomNumber}`
+    name: `name${randomNumber}`,
   });
 };
 
 module.exports = {
   boxAttributes,
-  create
+  create,
 };
 
 //***********************************************************

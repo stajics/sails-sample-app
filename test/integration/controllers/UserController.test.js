@@ -77,7 +77,7 @@ describe('controllers:UserController', () => {
       })
       .send({
         username: 'editedUsername',
-        ime: 'editedIme',
+        name: 'editedIme',
         password: 'editedPassword',
         email: 'editedEmail@email.com',
       })
@@ -87,9 +87,9 @@ describe('controllers:UserController', () => {
         res.body.should.have.all.keys('status', 'data');
         res.body.status.should.equal('success');
         res.body.data.should.have.all.keys('user');
-        res.body.data.user.should.have.all.keys('id', 'username', 'ime', 'rola', 'email', 'createdAt', 'updatedAt');
+        res.body.data.user.should.have.all.keys(userFactory.userAttributes);
         res.body.data.user.username.should.equal('editedUsername');
-        res.body.data.user.ime.should.equal('editedIme');
+        res.body.data.user.name.should.equal('editedIme');
         res.body.data.user.email.should.equal('editedEmail@email.com');
         done();
       });
@@ -108,7 +108,7 @@ describe('controllers:UserController', () => {
         res.body.should.have.all.keys('status', 'data');
         res.body.status.should.equal('success');
         res.body.data.should.have.all.keys('user');
-        res.body.data.user.should.have.all.keys('id', 'username', 'ime', 'rola', 'email', 'createdAt', 'updatedAt');
+        res.body.data.user.should.have.all.keys(userFactory.userAttributes);
         res.body.data.user.username.should.equal('editedUsername');
         done();
       });
@@ -186,7 +186,7 @@ describe('controllers:UserController', () => {
         res.body.should.have.all.keys('status', 'data');
         res.body.status.should.equal('success');
         res.body.data.should.have.all.keys('user');
-        res.body.data.user.should.have.all.keys('id', 'username', 'ime', 'rola', 'email', 'createdAt', 'updatedAt');
+        res.body.data.user.should.have.all.keys(userFactory.userAttributes);
         done();
       });
     });
