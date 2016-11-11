@@ -217,7 +217,7 @@ definitions:
     required:
       - id
       - username
-      - ime
+      - name
       - email
       - role
       - createdAt
@@ -227,7 +227,7 @@ definitions:
         type: string
       username:
         type: string
-      ime:
+      name:
         type: string
       email:
         type: string
@@ -244,13 +244,13 @@ definitions:
     type: object
     required:
       - username
-      - ime
+      - name
       - password
       - email
     properties:
       username:
         type: string
-      ime:
+      name:
         type: string
       password:
         type: string
@@ -262,7 +262,7 @@ definitions:
     properties:
       username:
         type: string
-      ime:
+      name:
         type: string
       password:
         type: string

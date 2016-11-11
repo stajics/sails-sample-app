@@ -12,9 +12,9 @@
 module.exports = {
   policies: {
     'v1/UserController': {
-      read: ['isAuthenticated', 'isManager'],
-      update: ['isAuthenticated', 'isManager'],
-      delete: ['isAuthenticated', 'isManager'],
+      read: ['isAuthenticated', 'isSuperUser'],
+      update: ['isAuthenticated', 'isSuperUser'],
+      delete: ['isAuthenticated', 'isSuperUser'],
     },
 
     'v1/user/RegistrationController': {
