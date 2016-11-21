@@ -125,14 +125,14 @@ module.exports = {
 //*********test/integration/controllers/BoxController.test.js
 //********************************************************
 //Requires userFactory and required policies to exist.
-"use strict";
-
+/* eslint import/no-extraneous-dependencies: 'off' */
 const chai = require('chai');
-const should = chai.should();
+
+const should = chai.should(); // eslint-disable-line no-unused-vars
 const url = 'http://localhost:3000/';
 const request = require('supertest')(url);
 
-//factories
+// factories
 const userFactory = require('../../factories/UserFactory');
 const boxFactory = require('../../factories/BoxFactory');
 
@@ -140,12 +140,12 @@ describe('controllers:BoxController', () => {
   let existingUser = null;
   let existingUser1 = null;
   let existingBox = null;
-  before(done => {
+  before((done) => {
     Promise.all([
-      userFactory.createSuperUser({poslovnica: 1}),
-      userFactory.createManager({poslovnica: 1}),
-      boxFactory.create()
-    ]).then(objects => {
+      userFactory.createSuperUser({ poslovnica: 1 }),
+      userFactory.createManager({ poslovnica: 1 }),
+      boxFactory.create(),
+    ]).then((objects) => {
       existingUser = objects[0];
       existingUser1 = objects[1];
       existingBox = objects[2];
@@ -156,30 +156,30 @@ describe('controllers:BoxController', () => {
 
   describe(':create', () => {
     it('Should create new box.', (done) => {
-      request.post(`v1/boxes`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send({
-          name: 'name'
-        })
-        .expect(201)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('success');
-          res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
-          res.body.data.box.name.should.equal('name');
-          done();
-        });
+      request.post('v1/boxes').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send({
+        name: 'name',
+      })
+      .expect(201)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('success');
+        res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
+        res.body.data.box.name.should.equal('name');
+        done();
+      });
     });
 
     it('Should get error (missing token).', (done) => {
-      request.post(`v1/boxes`)
+      request.post('v1/boxes')
         .send({
-          name: 'name'
+          name: 'name',
         })
         .expect(401)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) throw err;
           res.body.should.have.all.keys('status', 'data');
           res.body.status.should.equal('fail');
@@ -188,103 +188,103 @@ describe('controllers:BoxController', () => {
     });
 
     it('Should get error (user is not super_user).', (done) => {
-      request.post(`v1/boxes`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser1.id)}`
-        })
-        .send({
-          name: 'name'
-        })
-        .expect(401)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+      request.post('v1/boxes').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser1.id)}`,
+      })
+      .send({
+        name: 'name',
+      })
+      .expect(401)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
 
     it('Should get error (missing parameter).', (done) => {
-      request.post(`v1/boxes`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send({})
-        .expect(400)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+      request.post('v1/boxes').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
     it('Should get error (missing body).', (done) => {
-      request.post(`v1/boxes`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send()
-        .expect(400)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+      request.post('v1/boxes').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send()
+      .expect(400)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
   });
 
   describe(':read', () => {
     it('Should list boxes.', (done) => {
-      request.get(`v1/boxes`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send()
-        .expect(200)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('success');
-          res.body.data.should.have.all.keys('boxes');
-          res.body.data.boxes.length.should.be.above(0);
-          done();
-        });
+      request.get('v1/boxes').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send()
+      .expect(200)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('success');
+        res.body.data.should.have.all.keys('boxes');
+        res.body.data.boxes.length.should.be.above(0);
+        done();
+      });
     });
 
     it('Should list 1 box.', (done) => {
       request.get(`v1/boxes/${existingBox.id}`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send()
-        .expect(200)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('success');
-          res.body.data.should.have.all.keys('box');
-          res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
-          done();
-        });
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send()
+      .expect(200)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('success');
+        res.body.data.should.have.all.keys('box');
+        res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
+        done();
+      });
     });
 
     it('Should get error. (not a super_user)', (done) => {
-      request.get(`v1/boxes`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser1.id)}`
-        })
-        .send()
-        .expect(401)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+      request.get('v1/boxes').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser1.id)}`,
+      })
+      .send()
+      .expect(401)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
     it('Should get error. (no token)', (done) => {
-      request.get(`v1/boxes`)
+      request.get('v1/boxes')
         .send()
         .expect(401)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) throw err;
           res.body.should.have.keys('status', 'data');
           res.body.status.should.equal('fail');
@@ -297,46 +297,46 @@ describe('controllers:BoxController', () => {
   describe(':update', () => {
     it('Should update box.', (done) => {
       request.put(`v1/boxes/${existingBox.id}`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send({
-          name: "updatedIme"
-        })
-        .expect(200)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('success');
-          res.body.data.should.have.all.keys('box');
-          res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
-          res.body.data.box.name.should.equal('updatedIme');
-          done();
-        });
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send({
+        name: 'updatedIme',
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('success');
+        res.body.data.should.have.all.keys('box');
+        res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
+        res.body.data.box.name.should.equal('updatedIme');
+        done();
+      });
     });
 
     it('Should get error. (not a super_admin)', (done) => {
       request.put(`v1/boxes/${existingBox.id}`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser1.id)}`
-        })
-        .send({
-          name: "updatedIme"
-        })
-        .expect(401)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+        authorization: `Bearer ${userFactory.getToken(existingUser1.id)}`,
+      })
+      .send({
+        name: 'updatedIme',
+      })
+      .expect(401)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
     it('Should get error. (no token)', (done) => {
       request.put(`v1/boxes/${existingUser1.id}`)
         .send({
-          name: "updatedIme"
+          name: 'updatedIme',
         })
         .expect(401)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) throw err;
           res.body.should.have.keys('status', 'data');
           res.body.status.should.equal('fail');
@@ -349,67 +349,67 @@ describe('controllers:BoxController', () => {
   describe(':delete', () => {
     it('Should delete box.', (done) => {
       request.delete(`v1/boxes/${existingBox.id}`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send()
-        .expect(200)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.all.keys('status', 'data');
-          res.body.status.should.equal('success');
-          res.body.data.should.have.all.keys('box');
-          res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
-          done();
-        });
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send()
+      .expect(200)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.all.keys('status', 'data');
+        res.body.status.should.equal('success');
+        res.body.data.should.have.all.keys('box');
+        res.body.data.box.should.have.all.keys(boxFactory.boxAttributes);
+        done();
+      });
     });
 
     it('Should get error. (box does not exist)', (done) => {
       request.delete(`v1/boxes/${existingBox.id}`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send()
-        .expect(404)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send()
+      .expect(404)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
     it('Should get error. (box does not exist) (will error code 400 becouse id is string (key is int in db))', (done) => {
-      request.delete(`v1/boxes/string`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser.id)}`
-        })
-        .send()
-        .expect(400)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+      request.delete('v1/boxes/string').set({
+        authorization: `Bearer ${userFactory.getToken(existingUser.id)}`,
+      })
+      .send()
+      .expect(400)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
     it('Should get error. (not a super_user)', (done) => {
       request.delete(`v1/boxes/${existingUser.id}`).set({
-          'authorization': `Bearer ${userFactory.getToken(existingUser1.id)}`
-        })
-        .send()
-        .expect(401)
-        .end(function(err, res) {
-          if (err) throw err;
-          res.body.should.have.keys('status', 'data');
-          res.body.status.should.equal('fail');
-          done();
-        });
+        authorization: `Bearer ${userFactory.getToken(existingUser1.id)}`,
+      })
+      .send()
+      .expect(401)
+      .end((err, res) => {
+        if (err) throw err;
+        res.body.should.have.keys('status', 'data');
+        res.body.status.should.equal('fail');
+        done();
+      });
     });
 
     it('Should get error. (no token)', (done) => {
       request.delete(`v1/boxes/${existingUser1.id}`)
         .send()
         .expect(401)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) throw err;
           res.body.should.have.keys('status', 'data');
           res.body.status.should.equal('fail');
